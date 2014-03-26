@@ -17,7 +17,7 @@ Preparation:
 2. Download it and extract the ZIP file into your local directory.
 3. Download the mapping files from [termalxml/](https://github.com/obidea/semantika-musicbrainz/tree/master/termalxml) and place them together with the CLI extraction. Notice that you might have downloaded the configuration file as well (mbzdb.cfg.xml).
 4. Download the sample dataset from [sample-data/](https://github.com/obidea/semantika-musicbrainz/tree/master/sample-data) and extract the ZIP into your local directory. The ZIP file contains a self-contained H2 database.
-5. Copy-and-paste a JAR file called `h2-1.3.xxx.jar` to `jdbc/` in CLI home folder.
+5. Browse the H2 home folder and copy-and-paste a JAR file called h2-1.3.xxx.jar to `jdbc/` in CLI home folder.
 
 Start Exporting:
 ---------------
@@ -32,14 +32,15 @@ $ ./h2.sh
 $ cd $CLI_HOME
 $ ./semantika materialize --config=mbzdb.cfg.xml --output=output.n3 -f N3
 ```
+(Note the other options for the output format, e.g., Turtle, RDF/XML and JSON-LD, see `semantika --help`)
 
 
 Important Notes
 ===============
 
-1. To be able to try all the mappings, you need to edit the configuration file manually. A list of mapping files are presented there, however the system only accepts one file at a time and therefore you need to remove the comment sign by hand.
+* To be able to try all the mappings, you need to edit the configuration file manually. A list of mapping files are presented there, however the system only accepts one file at a time and therefore you need to adjust the comment sign by hand. Multiple mapping files support will be supported in the future release.
 
-2. The dataset is a subset of MusicBrainzDB per March 1, 2014. The dataset contains all US artists/groups from 1970 to 1989 who are still active until now. In summary the dataset consists of 54 tables with 481,401 tuples. The extraction model is defined as below:
+* The dataset is a subset of MusicBrainzDB per March 1, 2014. The dataset contains all US artists/groups from 1970 to 1989 who are still active until now. In summary the dataset consists of 54 tables with 481,401 tuples. The extraction model is defined as below:
 ```
 artist 
 where begin_date_year < 1990 and begin_date_year >= 1970 
@@ -48,9 +49,11 @@ where begin_date_year < 1990 and begin_date_year >= 1970
   and ended = false 
 ```
 
-3. Notice that in the mapping files there are some mappings enclosed by comment signs. These ignored mappings have no support by the current implementation. They are now in my TODO list.
+* The dataset is released following the parent license which is under the Creative Commons [Attribution-NonCommercial-ShareAlike 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/).
 
-4. All the mappings have performed using the provided dataset and all passed the run.
+* Notice that some mappings are enclosed by comment signs. These mappings have been disabled due to system limitations. I have put them in my TODO list.
+
+* All the mappings have been tested using the provided dataset and all passed the run.
 ```
 area.tml.xml = 627
 artist.tml.xml = 98,486
