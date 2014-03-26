@@ -26,7 +26,7 @@
       <subject-map rr:class="muto:Tag" rr:template="Tag(ID)"/>
       <predicate-object-map rr:predicate="muto:tagLabel" rr:column="NAME"/>
    </mapping>
-   <mapping tml:id="ARTIST_TAG">
+   <mapping tml:id="artist_tag">
       <logical-table>
       <![CDATA[
          select ARTIST.GID as ARTIST_GID, TAG.NAME as TAG_NAME
@@ -39,7 +39,7 @@
       <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Artist(ARTIST_GID)"/>
       <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
    </mapping>
-   <mapping tml:id="LABEL_TAG">
+   <mapping tml:id="label_tag">
       <logical-table>
       <![CDATA[
          select LABEL.GID as LABEL_GID, TAG.NAME as TAG_NAME
@@ -65,7 +65,7 @@
       <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Place(PLACE_GID)"/>
       <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
    </mapping>
-   <mapping tml:id="RECORDING_TAG">
+   <mapping tml:id="recording_tag">
       <logical-table>
       <![CDATA[
          select RECORDING.GID as RECORDING_GID, TAG.NAME as TAG_NAME
@@ -78,7 +78,7 @@
       <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Recording(RECORDING_GID)"/>
       <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
    </mapping>
-   <mapping tml:id="RELEASE_TAG">
+   <mapping tml:id="release_tag">
       <logical-table>
       <![CDATA[
          select RELEASE.GID as RELEASE_GID, TAG.NAME as TAG_NAME
@@ -91,7 +91,7 @@
       <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Release(RELEASE_GID)"/>
       <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
    </mapping>
-   <mapping tml:id="WORK_TAG">
+   <mapping tml:id="work_tag">
       <logical-table>
       <![CDATA[
          select WORK.GID as WORK_GID, TAG.NAME as TAG_NAME
