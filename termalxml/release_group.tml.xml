@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<program xmlns="http://www.obidea.com/ns/termal#"
+   xmlns:tml="http://www.obidea.com/ns/termal#"
+   xmlns:rr="http://www.w3.org/ns/r2rml#">
+   <prefix tml:name="mo" tml:ns="http://purl.org/ontology/mo/" />
+   <prefix tml:name="foaf" tml:ns="http://xmlns.com/foaf/0.1/" />
+   <prefix tml:name="dc" tml:ns="http://purl.org/dc/elements/1.1/" />
+   <prefix tml:name="rdfs" tml:ns="http://www.w3.org/2000/01/rdf-schema#" />
+
+   <uri-template tml:name="ReleaseGroup" tml:value="http://musicbrainz.org/release-group/{1}#_" />
+   <uri-template tml:name="SignalGroup" tml:value="http://musicbrainz.org/signal-group/{1}#_" />
+
+   <mapping tml:id="ReleaseGroup">
+      <logical-table rr:tableName="RELEASE_GROUP" />
+      <subject-map rr:class="mo:SignalGroup" rr:template="SignalGroup(GID)"/>
+      <predicate-object-map rr:predicate="mo:musicbrainz_guid" rr:column="GID"/>
+      <predicate-object-map rr:predicate="dc:title" rr:column="NAME"/>
+   </mapping>
+   <mapping tml:id="release_group_wikipedia">
+      <logical-table>
+      <![CDATA[
+         select RELEASE_GROUP.GID as RELEASE_GROUP_GID, URL
+         from RELEASE_GROUP
+         join L_RELEASE_GROUP_URL on RELEASE_GROUP.ID = L_RELEASE_GROUP_URL.ENTITY0
+         join LINK on L_RELEASE_GROUP_URL.LINK = LINK.ID
+         join LINK_TYPE on LINK_TYPE = LINK_TYPE.ID
+         join URL on L_RELEASE_GROUP_URL.ENTITY1 = URL.ID
+         where LINK_TYPE.GID='6578f0e9-1ace-4095-9de8-6e517ddb1ceb'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="ReleaseGroup(RELEASE_GROUP_GID)"/>
+      <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL"/>
+   </mapping>
+   <mapping tml:id="release_group_seeAlso">
+      <logical-table>
+      <![CDATA[
+         select RELEASE_GROUP.GID as RELEASE_GROUP_GID, URL
+         from RELEASE_GROUP
+         join L_RELEASE_GROUP_URL on RELEASE_GROUP.ID = L_RELEASE_GROUP_URL.ENTITY0
+         join LINK on L_RELEASE_GROUP_URL.LINK = LINK.ID
+         join LINK_TYPE on LINK_TYPE = LINK_TYPE.ID
+         join URL on L_RELEASE_GROUP_URL.ENTITY1 = URL.ID
+         where LINK_TYPE.GID='85b0a010-3237-47c7-8476-6fcefd4761af'
+             or LINK_TYPE.GID='d111c58d-0d9b-4675-99c1-ddc5a8e01847'
+             or LINK_TYPE.GID='fd87657e-aa2f-44ad-b5d8-d97c0c938a4d'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="ReleaseGroup(RELEASE_GROUP_GID)"/>
+      <predicate-object-map rr:predicate="rdfs:seeAlso" rr:column="URL"/>
+   </mapping>
+   <mapping tml:id="release_group_annotation">
+      <logical-table>
+      <![CDATA[
+         select GID, TEXT
+         from ANNOTATION
+         join RELEASE_GROUP_ANNOTATION on ANNOTATION.ID = RELEASE_GROUP_ANNOTATION.ANNOTATION
+         join RELEASE_GROUP on RELEASE_GROUP_ANNOTATION.RELEASE_GROUP = RELEASE_GROUP.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:template="ReleaseGroup(GID)"/>
+      <predicate-object-map rr:predicate="rdfs:comment" rr:column="TEXT"/>
+   </mapping>
+</program>

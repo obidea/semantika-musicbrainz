@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<program xmlns="http://www.obidea.com/ns/termal#"
+   xmlns:tml="http://www.obidea.com/ns/termal#"
+   xmlns:rr="http://www.w3.org/ns/r2rml#">
+   <prefix tml:name="mo" tml:ns="http://purl.org/ontology/mo/" />
+   <prefix tml:name="dc" tml:ns="http://purl.org/dc/elements/1.1/" />
+   <prefix tml:name="event" tml:ns="http://purl.org/NET/c4dm/event.owl#" />
+   <prefix tml:name="muto" tml:ns="http://purl.org/muto/core#" />
+
+   <uri-template tml:name="Tag" tml:value="http://musicbrainz.org/tag/{1}#_" />
+   <uri-template tml:name="Artist" tml:value="http://musicbrainz.org/artist/{1}#_" />
+   <uri-template tml:name="ArtistTag" tml:value="http://musicbrainz.org/artist/{1}#tag/{2}" />
+   <uri-template tml:name="LabelTag" tml:value="http://musicbrainz.org/label/{1}#tag/{2}" />
+   <uri-template tml:name="PlaceTag" tml:value="http://musicbrainz.org/place/{1}#tag/{2}" />
+   <uri-template tml:name="RecordingTag" tml:value="http://musicbrainz.org/recording/{1}#tag/{2}" />
+   <uri-template tml:name="ReleaseTag" tml:value="http://musicbrainz.org/release/{1}#tag/{2}" />
+   <uri-template tml:name="WorkTag" tml:value="http://musicbrainz.org/work/{1}#tag/{2}" />
+   <uri-template tml:name="Label" tml:value="http://musicbrainz.org/label/{1}#{2}" />
+   <uri-template tml:name="Place" tml:value="http://musicbrainz.org/place/{1}#_" />
+   <uri-template tml:name="Recording" tml:value="http://musicbrainz.org/recording/{1}#_" />
+   <uri-template tml:name="Release" tml:value="http://musicbrainz.org/release/{1}#_" />
+   <uri-template tml:name="Work" tml:value="http://musicbrainz.org/work/{1}#_" />
+
+   <mapping tml:id="Tag">
+      <logical-table rr:tableName="TAG" />
+      <subject-map rr:class="muto:Tag" rr:template="Tag(ID)"/>
+      <predicate-object-map rr:predicate="muto:tagLabel" rr:column="NAME"/>
+   </mapping>
+   <mapping tml:id="ARTIST_TAG">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, TAG.NAME as TAG_NAME
+         from ARTIST_TAG
+         join ARTIST on ARTIST_TAG.ARTIST = ARTIST.ID
+         join TAG on ARTIST_TAG.TAG = TAG.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:class="muto:Tagging" rr:template="ArtistTag(ARTIST_GID, TAG_NAME)"/>
+      <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
+   </mapping>
+   <mapping tml:id="LABEL_TAG">
+      <logical-table>
+      <![CDATA[
+         select LABEL.GID as LABEL_GID, TAG.NAME as TAG_NAME
+         from LABEL_TAG
+         join LABEL on LABEL_TAG.LABEL = LABEL.ID
+         join TAG on LABEL_TAG.TAG = TAG.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:class="muto:Tagging" rr:template="LabelTag(LABEL_GID, TAG_NAME)"/>
+      <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Label(LABEL_GID)"/>
+      <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
+   </mapping>
+   <mapping tml:id="place_tag">
+      <logical-table>
+      <![CDATA[
+         select PLACE.GID as PLACE_GID, TAG.NAME as TAG_NAME
+         from PLACE_TAG
+         join PLACE on PLACE_TAG.PLACE = PLACE.ID
+         join TAG on PLACE_TAG.TAG = TAG.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:class="muto:Tagging" rr:template="PlaceTag(PLACE_GID, TAG_NAME)"/>
+      <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Place(PLACE_GID)"/>
+      <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
+   </mapping>
+   <mapping tml:id="RECORDING_TAG">
+      <logical-table>
+      <![CDATA[
+         select RECORDING.GID as RECORDING_GID, TAG.NAME as TAG_NAME
+         from RECORDING_TAG
+         join RECORDING on RECORDING_TAG.RECORDING = RECORDING.ID
+         join TAG on RECORDING_TAG.TAG = TAG.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:class="muto:Tagging" rr:template="RecordingTag(RECORDING_GID, TAG_NAME)"/>
+      <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Recording(RECORDING_GID)"/>
+      <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
+   </mapping>
+   <mapping tml:id="RELEASE_TAG">
+      <logical-table>
+      <![CDATA[
+         select RELEASE.GID as RELEASE_GID, TAG.NAME as TAG_NAME
+         from RELEASE_TAG
+         join RELEASE on RELEASE_TAG.RELEASE = RELEASE.ID
+         join TAG on RELEASE_TAG.TAG = TAG.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:class="muto:Tagging" rr:template="ReleaseTag(RELEASE_GID, TAG_NAME)"/>
+      <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Release(RELEASE_GID)"/>
+      <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
+   </mapping>
+   <mapping tml:id="WORK_TAG">
+      <logical-table>
+      <![CDATA[
+         select WORK.GID as WORK_GID, TAG.NAME as TAG_NAME
+         from WORK_TAG
+         join WORK on WORK_TAG.WORK_ID = WORK.ID
+         join TAG on WORK_TAG.TAG = TAG.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:class="muto:Tagging" rr:template="WorkTag(WORK_GID, TAG_NAME)"/>
+      <predicate-object-map rr:predicate="muto:taggedResource" rr:template="Work(WORK_GID)"/>
+      <predicate-object-map rr:predicate="muto:hasTag" rr:template="Tag(TAG_NAME)"/>
+   </mapping>
+</program>

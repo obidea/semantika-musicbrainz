@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<program xmlns="http://www.obidea.com/ns/termal#"
+   xmlns:tml="http://www.obidea.com/ns/termal#"
+   xmlns:rr="http://www.w3.org/ns/r2rml#">
+   <prefix tml:name="mo" tml:ns="http://purl.org/ontology/mo/" />
+   <prefix tml:name="foaf" tml:ns="http://xmlns.com/foaf/0.1/" />
+   <prefix tml:name="ov" tml:ns="http://open.vocab.org/terms/" />
+   <prefix tml:name="skos" tml:ns="http://www.w3.org/2004/02/skos/core#" />
+   <prefix tml:name="rdfs" tml:ns="http://www.w3.org/2000/01/rdf-schema#" />
+
+   <uri-template tml:name="Artist" tml:value="http://musicbrainz.org/artist/{1}#_" />
+   <uri-template tml:name="Area" tml:value="http://musicbrainz.org/area/{1}#_" />
+   <uri-template tml:name="Group" tml:value="http://musicbrainz.org/signal-group/{1}#_"/>
+   <uri-template tml:name="Release" tml:value="http://musicbrainz.org/release/{1}#_"/>
+   <uri-template tml:name="Track" tml:value="http://musicbrainz.org/track/{1}#_"/>
+   <uri-template tml:name="Recording" tml:value="http://musicbrainz.org/recording/{1}#_"/>
+
+   <mapping tml:id="Artist">
+      <logical-table rr:tableName="ARTIST" />
+      <subject-map rr:class="mo:MusicArtist" rr:template="Artist(GID)"/>
+      <predicate-object-map rr:predicate="mo:musicbrainz_guid" rr:column="GID"/>
+      <predicate-object-map rr:predicate="foaf:name" rr:column="NAME"/>
+      <predicate-object-map rr:predicate="ov:sortLabel" rr:column="SORT_NAME"/>
+   </mapping>
+   <mapping tml:id="artist_altLabel">
+       <logical-table>
+       <![CDATA[
+         select GID, ARTIST_ALIAS.NAME as ARTIST_ALIAS_NAME
+         from ARTIST
+         join ARTIST_ALIAS on ARTIST.ID = ARTIST_ALIAS.ARTIST
+       ]]>
+       </logical-table>
+       <subject-map rr:template="Artist(GID)"/>
+       <predicate-object-map rr:predicate="skos:altLabel" rr:column="ARTIST_ALIAS_NAME"/>
+    </mapping>
+    <mapping tml:id="artist_type_person">
+       <logical-table>
+       <![CDATA[
+         select *
+         from ARTIST
+         where TYPE = 1
+       ]]>
+       </logical-table>
+       <subject-map rr:class="mo:SoloMusicArtist" rr:template="Artist(GID)"/>
+    </mapping>
+    <mapping tml:id="artist_type_group">
+       <logical-table>
+       <![CDATA[
+         select *
+         from ARTIST
+         where TYPE = 2
+       ]]>
+       </logical-table>
+       <subject-map rr:class="mo:MusicGroup" rr:template="Artist(GID)"/>
+    </mapping>
+    <!-- Not yet supported LOWER function -->
+    <!-- <mapping tml:id="artist_type_group">
+      <logical-table>
+      <![CDATA[
+         select GID, LOWER(GENDER.NAME) as GENDER_NAME
+         from ARTIST
+         join GENDER on ARTIST.GENDER = GENDER.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(gid)"/>
+      <predicate-object-map rr:predicate="foaf:gender" rr:column="gender_name"/>
+   </mapping> -->
+   <mapping tml:id="artist_area">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, AREA.GID as AREA_GID
+         from ARTIST
+         join AREA on ARTIST.AREA = AREA.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="foaf:based_near" rr:template="Area(AREA_GID)"/>
+   </mapping>
+   <mapping tml:id="artist_credit_release_group">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, RELEASE_GROUP.GID as RELEASE_GROUP_GID
+         from ARTIST
+         join ARTIST_CREDIT_NAME on ARTIST.ID = ARTIST_CREDIT_NAME.ARTIST
+         join ARTIST_CREDIT on ARTIST_CREDIT.ID = ARTIST_CREDIT_NAME.ARTIST_CREDIT
+         join RELEASE_GROUP on ARTIST_CREDIT.ID = RELEASE_GROUP.ARTIST_CREDIT
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="foaf:made" rr:template="Group(RELEASE_GROUP_GID)"/>
+   </mapping>
+   <mapping tml:id="artist_credit_release">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, RELEASE.GID as RELEASE_GID
+         from ARTIST
+         join ARTIST_CREDIT_NAME on ARTIST.ID = ARTIST_CREDIT_NAME.ARTIST 
+         join ARTIST_CREDIT on ARTIST_CREDIT.ID = ARTIST_CREDIT_NAME.ARTIST_CREDIT 
+         join RELEASE on ARTIST_CREDIT.ID = RELEASE.ARTIST_CREDIT
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="foaf:made" rr:template="Release(RELEASE_GID)"/>
+   </mapping>
+   <mapping tml:id="artist_credit_track">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, TRACK.ID as TRACK_ID
+         from ARTIST
+         join ARTIST_CREDIT_NAME on ARTIST.ID = ARTIST_CREDIT_NAME.ARTIST
+         join ARTIST_CREDIT on ARTIST_CREDIT.ID = ARTIST_CREDIT_NAME.ARTIST_CREDIT
+         join TRACK on ARTIST_CREDIT.ID = TRACK.ARTIST_CREDIT
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="foaf:made" rr:template="Track(TRACK_ID)"/>
+   </mapping>
+   <mapping tml:id="artist_wikipedia">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, URL
+         from ARTIST
+         join L_ARTIST_URL ON ARTIST.ID = L_ARTIST_URL.ENTITY0
+         join LINK ON L_ARTIST_URL.LINK = LINK.ID 
+         join LINK_TYPE ON LINK_TYPE = LINK_TYPE.ID 
+         join URL on L_ARTIST_URL.ENTITY1 = URL.ID  
+         where LINK_TYPE.GID = '29651736-fa6d-48e4-aadc-a557c6add1cb'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL"/>
+   </mapping>
+   <!-- Not yet supported LIKE expression -->
+   <!-- <mapping tml:id="artist_twitter">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, URL
+         from ARTIST
+         join L_ARTIST_URL ON ARTIST.ID = L_ARTIST_URL.ENTITY0
+         join LINK ON L_ARTIST_URL.LINK = LINK.ID 
+         join LINK_TYPE ON LINK_TYPE = LINK_TYPE.ID 
+         join URL on L_ARTIST_URL.ENTITY1 = URL.ID  
+         where LINK_TYPE.GID = '9309af3a-ebb6-4960-aebb-d286bd3ed1c7' AND URL LIKE 'http://twitter.com/%'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="foaf:account" rr:column="URL"/>
+   </mapping> -->
+   <!-- Not yet supported self-join expression -->
+   <!-- <mapping tml:id="artist_member">
+      <logical-table>
+      <![CDATA[
+         select A1.GID as ARTIST_GID_1, A2.GID as ARTIST_GID_2
+         from ARTIST as A1
+         join L_ARTIST_ARTIST ON A1.ID = L_ARTIST_ARTIST.ENTITY0
+         join LINK ON L_ARTIST_ARTIST.LINK = LINK.ID 
+         join LINK_TYPE ON LINK_TYPE = LINK_TYPE.ID 
+         join ARTIST as A2 on L_ARTIST_ARTIST.ENTITY1 = A2.ID  
+         where LINK_TYPE.GID = '5be4c609-9afa-4ea0-910b-12ffb71e3821' AND LINK.ENDED = FALSE
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(artist_gid_1)"/>
+      <predicate-object-map rr:predicate="mo:member_of" rr:column="Artist(artist_gid_2)"/>
+   </mapping> -->
+   <mapping tml:id="artist_recording">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID, RECORDING.ID as RECORDING_GID
+         from ARTIST
+         join ARTIST_CREDIT_NAME on ARTIST.ID = ARTIST_CREDIT_NAME.ARTIST
+         join ARTIST_CREDIT on ARTIST_CREDIT.ID = ARTIST_CREDIT_NAME.ARTIST_CREDIT
+         join RECORDING on ARTIST_CREDIT.ID = RECORDING.ARTIST_CREDIT
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="foaf:made" rr:template="Recording(RECORDING_GID)"/>
+   </mapping>
+   <mapping tml:id="artist_annotation">
+      <logical-table>
+      <![CDATA[
+         select GID, TEXT
+         from ANNOTATION
+         join ARTIST_ANNOTATION on ANNOTATION.ID = ARTIST_ANNOTATION.ANNOTATION
+         join ARTIST on ARTIST_ANNOTATION.ARTIST = ARTIST.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(GID)"/>
+      <predicate-object-map rr:predicate="rdfs:comment" rr:column="TEXT"/>
+   </mapping>
+</program>

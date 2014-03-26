@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE semantika-configuration PUBLIC
+   "-//Semantika/Semantika Configuration DTD//EN"
+   "http://www.obidea.com/semantika/dtd/semantika-configuration-1.0.dtd">
+
+<semantika-configuration>
+   <application-factory name="musicbrainz-test">
+      <data-source>
+         <property name="connection.url">jdbc:h2:tcp://localhost/mbzdb</property>
+         <property name="connection.driver_class">org.h2.Driver</property>
+         <property name="connection.username">sa</property>
+         <property name="connection.password"></property>
+      </data-source>
+      <!-- 
+        Currently the system doesn't support multiple mapping files and therefore
+        the comment sign needs to be removed manually. Multiple mapping inputs will
+        be supported in the future release.
+       -->
+      <mapping-source resource="area.tml.xml" strict-parsing="false"/>
+      <!-- <mapping-source resource="artist.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="dbpedia.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="label.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="medium.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="place.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="recording.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="release_group.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="release.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="tag.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="track.tml.xml" strict-parsing="false"/> -->
+      <!-- <mapping-source resource="work.tml.xml" strict-parsing="false"/> -->
+   </application-factory>
+</semantika-configuration>

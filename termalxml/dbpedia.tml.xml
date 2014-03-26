@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<program xmlns="http://www.obidea.com/ns/termal#"
+   xmlns:tml="http://www.obidea.com/ns/termal#"
+   xmlns:rr="http://www.w3.org/ns/r2rml#">
+   <prefix tml:name="owl" tml:ns="http://www.w3.org/2002/07/owl#" />
+   <prefix tml:name="rdfs" tml:ns="http://www.w3.org/2000/01/rdf-schema#" />
+
+   <uri-template tml:name="Area" tml:value="http://musicbrainz.org/area/{1}#_" />
+   <uri-template tml:name="Artist" tml:value="http://musicbrainz.org/artist/{1}#_" />
+   <uri-template tml:name="ReleaseGroup" tml:value="http://musicbrainz.org/signal-group/{1}#_" />
+
+   <!-- Not yet supported REPLACE function -->
+   <!-- <mapping tml:id="artist_dbpedia">
+      <logical-table>
+      <![CDATA[
+         select ARTIST.GID as ARTIST_GID,
+                replace(replace(URL, 'wikipedia.org/wiki', 'dbpedia.org/resource'),
+                                     'http://en.', 'http://') AS URL
+         from ARTIST
+         join L_ARTIST_URL on ARTIST.ID = L_ARTIST_URL.ENTITY0
+         join LINK on L_ARTIST_URL.LINK = LINK.ID
+         join LINK_TYPE on LINK_TYPE = LINK_TYPE.ID
+         join URL on L_ARTIST_URL.ENTITY1 = URL.ID
+         where LINK_TYPE.GID='29651736-fa6d-48e4-aadc-a557c6add1cb' and
+               URL similar to 'http://(de|el|en|es|ko|pl|pt).wikipedia.org/wiki/%'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Artist(ARTIST_GID)"/>
+      <predicate-object-map rr:predicate="owl:sameAs" rr:column="URL"/>
+   </mapping> -->
+   <!-- Not yet supported REPLACE function -->
+   <!-- <mapping tml:id="release_group_dbpedia">
+      <logical-table>
+      <![CDATA[
+         select RELEASE_GROUP.GID as RELEASE_GROUP_GID,
+                replace(replace(URL, 'wikipedia.org/wiki', 'dbpedia.org/resource'),
+                                     'http://en.', 'http://') AS URL
+         from RELEASE_GROUP
+         join L_RELEASE_GROUP_URL on RELEASE_GROUP.ID = L_RELEASE_GROUP_URL.ENTITY0
+         join LINK on L_RELEASE_GROUP_URL.LINK = LINK.ID
+         join LINK_TYPE on LINK_TYPE = LINK_TYPE.ID
+         join URL on L_RELEASE_GROUP_URL.ENTITY1 = URL.ID
+         where LINK_TYPE.GID='6578f0e9-1ace-4095-9de8-6e517ddb1ceb' and
+               URL similar to 'http://(de|el|en|es|ko|pl|pt).wikipedia.org/wiki/%'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="ReleaseGroup(RELEASE_GROUP_GID)"/>
+      <predicate-object-map rr:predicate="rdfs:seeAlso" rr:column="URL"/>
+   </mapping> -->
+   <!-- Not yet supported REPLACE function -->
+   <!-- <mapping tml:id="area_dbpedia">
+      <logical-table>
+      <![CDATA[
+         select AREA.GID as AREA_GID,
+                replace(replace(URL, 'wikipedia.org/wiki', 'dbpedia.org/resource'),
+                                     'http://en.', 'http://') AS URL
+         from AREA
+         join L_AREA_URL on RELEASE_GROUP.ID = L_AREA_URL.ENTITY0
+         join LINK on L_AREA_URL.LINK = LINK.ID
+         join LINK_TYPE on LINK_TYPE = LINK_TYPE.ID
+         join URL on L_AREA_URL.ENTITY1 = URL.ID
+         where LINK_TYPE.GID='9228621d-9720-35c3-ad3f-327d789464ec' and
+               URL similar to 'http://(de|el|en|es|ko|pl|pt).wikipedia.org/wiki/%'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Area(area_gid)"/>
+      <predicate-object-map rr:predicate="owl:sameAs" rr:column="url"/>
+   </mapping>
+   -->
+</program>

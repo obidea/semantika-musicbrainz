@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<program xmlns="http://www.obidea.com/ns/termal#"
+   xmlns:tml="http://www.obidea.com/ns/termal#"
+   xmlns:rr="http://www.w3.org/ns/r2rml#">
+   <prefix tml:name="mo" tml:ns="http://purl.org/ontology/mo/" />
+   <prefix tml:name="dc" tml:ns="http://purl.org/dc/elements/1.1/" />
+   <prefix tml:name="foaf" tml:ns="http://xmlns.com/foaf/0.1/" />
+   <prefix tml:name="rdfs" tml:ns="http://www.w3.org/2000/01/rdf-schema#" />
+
+   <uri-template tml:name="Recording" tml:value="http://musicbrainz.org/recording/{1}#_" />
+
+   <mapping tml:id="Recording">
+      <logical-table rr:tableName="RECORDING" />
+      <subject-map rr:class="mo:Signal" rr:template="Recording(GID)"/>
+      <predicate-object-map rr:predicate="mo:musicbrainz_guid" rr:column="GID"/>
+      <predicate-object-map rr:predicate="dc:title" rr:column="NAME"/>
+      <predicate-object-map rr:predicate="mo:duration" rr:column="LENGTH"/>
+   </mapping>
+   <mapping tml:id="recording_annotation">
+      <logical-table>
+      <![CDATA[
+         select GID, TEXT
+         from ANNOTATION
+         join RECORDING_ANNOTATION on ANNOTATION.ID = RECORDING_ANNOTATION.ANNOTATION
+         join RECORDING on RECORDING_ANNOTATION.RECORDING = RECORDING.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Recording(GID)"/>
+      <predicate-object-map rr:predicate="rdfs:comment" rr:column="TEXT"/>
+   </mapping>
+</program>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<program xmlns="http://www.obidea.com/ns/termal#"
+   xmlns:tml="http://www.obidea.com/ns/termal#"
+   xmlns:rr="http://www.w3.org/ns/r2rml#">
+   <prefix tml:name="mo" tml:ns="http://purl.org/ontology/mo/" />
+   <prefix tml:name="foaf" tml:ns="http://xmlns.com/foaf/0.1/" />
+   <prefix tml:name="rdfs" tml:ns="http://www.w3.org/2000/01/rdf-schema#" />
+
+   <uri-template tml:name="Work" tml:value="http://musicbrainz.org/work/{1}#_" />
+   <uri-template tml:name="WorkComposition" tml:value="http://musicbrainz.org/work/{1}#composition" />
+   <uri-template tml:name="Artist" tml:value="http://musicbrainz.org/artist/{1}#_" />
+
+   <mapping tml:id="Work">
+      <logical-table rr:tableName="WORK" />
+      <subject-map rr:class="mo:MusicalWork" rr:template="Work(GID)"/>
+      <predicate-object-map rr:predicate="mo:musicbrainz_guid" rr:column="GID"/>
+   </mapping>
+   <mapping tml:id="work_composition">
+      <logical-table rr:tableName="WORK" />
+      <subject-map rr:class="mo:Composition" rr:template="WorkComposition(GID)"/>
+      <predicate-object-map rr:predicate="mo:produced_work" rr:template="Work(GID)"/>
+   </mapping>
+   <mapping tml:id="composition_artist">
+      <logical-table>
+      <![CDATA[
+         select WORK.GID as WORK_GID, ARTIST.GID as ARTIST_GID
+         from ARTIST
+         join L_ARTIST_WORK on ARTIST.ID = L_ARTIST_WORK.ENTITY0
+         join LINK on L_ARTIST_WORK.LINK = LINK.ID
+         join LINK_TYPE on LINK_TYPE = LINK_TYPE.ID
+         join WORK on L_ARTIST_WORK.ENTITY1 = WORK.ID
+         where LINK_TYPE.GID='d59d99ea-23d4-4a80-b066-edca32ee158f'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="WorkComposition(WORK_GID)"/>
+      <predicate-object-map rr:predicate="mo:composer" rr:template="Artist(ARTIST_GID)"/>
+   </mapping>
+   <mapping tml:id="work_wikipedia">
+      <logical-table>
+      <![CDATA[
+         select WORK.GID as WORK_GID, URL
+         from WORK
+         join L_URL_WORK on WORK.ID = L_URL_WORK.ENTITY1
+         join LINK on L_URL_WORK.LINK = LINK.ID
+         join LINK_TYPE on LINK_TYPE = LINK_TYPE.ID
+         join URL on L_URL_WORK.ENTITY0 = URL.ID
+         where LINK_TYPE.GID='b45a88d6-851e-4a6e-9ec8-9a5f4ebe76ab'
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Work(WORK_GID)"/>
+      <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL"/>
+   </mapping>
+   <mapping tml:id="work_annotation">
+      <logical-table>
+      <![CDATA[
+         select GID, TEXT
+         from ANNOTATION 
+         join WORK_ANNOTATION on ANNOTATION.ID = WORK_ANNOTATION.ANNOTATION
+         join WORK on WORK_ANNOTATION.WORK_ID = WORK.ID
+      ]]>
+      </logical-table>
+      <subject-map rr:template="Work(GID)"/>
+      <predicate-object-map rr:predicate="rdfs:comment" rr:column="TEXT"/>
+   </mapping>
+</program>
