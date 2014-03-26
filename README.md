@@ -13,22 +13,22 @@ User Guide
 
 Preparation:
 ------------
-1. To run the examples, you will need [Semantika CLI tool](https://github.com/obidea/semantika-cli/releases/download/v1.1/semantika-cli-1.1.zip).
-2. Download it and extract the ZIP file into your local directory.
-3. Download the mapping files from [termalxml/](https://github.com/obidea/semantika-musicbrainz/tree/master/termalxml) and place them together with the CLI extraction. Notice that you might have downloaded the configuration file as well (mbzdb.cfg.xml).
-4. Download the sample dataset from [sample-data/](https://github.com/obidea/semantika-musicbrainz/tree/master/sample-data) and extract the ZIP into your local directory. The ZIP file contains a self-contained H2 database.
-5. Browse the H2 home folder and copy-and-paste a JAR file called h2-1.3.xxx.jar to `jdbc/` in CLI home folder.
+* To run the examples, you will need [Semantika CLI tool](https://github.com/obidea/semantika-cli/releases/download/v1.1/semantika-cli-1.1.zip).
+* Download it and extract the ZIP file into your local directory.
+* Download the mapping files from [termalxml/](https://github.com/obidea/semantika-musicbrainz/tree/master/termalxml) and place them together with the CLI extraction. Notice that you might have downloaded the configuration file as well (mbzdb.cfg.xml).
+* Download the sample dataset from [sample-data/](https://github.com/obidea/semantika-musicbrainz/tree/master/sample-data) and extract the ZIP into your local directory. The ZIP file contains a self-contained H2 database.
+* Browse the H2 home folder and copy-and-paste a JAR file called h2-1.3.xxx.jar to `jdbc/` in CLI home folder.
 
 Start Exporting:
 ---------------
-1. Run the H2 server by executing `h2.sh` (or `h2.bat` if you're in Windows) from its home directory.
+* Run the H2 server by executing `h2.sh` (or `h2.bat` if you're in Windows) from its home directory.
 ```
 $ cd $H2_HOME
 $ ./h2.sh 
 ```
 
-2. Run Semantika CLI tool from its home directory.
-  ```
+* Run Semantika CLI tool from its home directory.
+```
 $ cd $CLI_HOME
 $ ./semantika materialize --config=mbzdb.cfg.xml --output=output.n3 -f N3
 ```
