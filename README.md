@@ -1,5 +1,5 @@
-MusicBrainz Mappings
-====================
+MusicBrainz-TERMAL/XML
+======================
 
 MusicBrainz rdb2rdf mappings for [OBDA Semantika](http://obidea.github.io/semantika-api/) system. Currently we are presenting the native mapping language for Semantika, called [TERMAL/XML](https://github.com/obidea/semantika-api/wiki/2.-Basic-RDB-RDF-Mapping). In the future the system will be able to read R2RML syntax.
 
