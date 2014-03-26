@@ -24,11 +24,11 @@ Start Exporting:
 1. Run the H2 server by executing `h2.sh` (or `h2.bat` if you're in Windows) from its home directory.
 ```
 $ cd $H2_HOME
-$ ./h2.sh
+$ ./h2.sh 
 ```
 
 2. Run Semantika CLI tool from its home directory.
-```
+  ```
 $ cd $CLI_HOME
 $ ./semantika materialize --config=mbzdb.cfg.xml --output=output.n3 -f N3
 ```
@@ -38,9 +38,9 @@ $ ./semantika materialize --config=mbzdb.cfg.xml --output=output.n3 -f N3
 Important Notes
 ===============
 
-* To be able to try all the mappings, you need to edit the configuration file manually. A list of mapping files are presented there, however the system only accepts one file at a time and therefore you need to adjust the comment sign by hand. Multiple mapping files support will be implemented in the future release.
+* To be able to try all the mappings, you need to edit the configuration file manually. A list of mapping files are presented there, however the system only accepts one file at a time and therefore you need to adjust the comment sign by hand. A multiple mapping files support will be implemented in the future release.
 
-* The dataset is a subset of MusicBrainzDB per March 1, 2014. The dataset contains all US artists/groups from 1970 to 1989 who are still active until now. In summary the dataset consists of 54 tables with 481,401 tuples. The extraction model is defined as below:
+* The dataset is a subset of [MusicBrainz Database](http://musicbrainz.org/doc/MusicBrainz_Database) per March 1, 2014. The dataset contains all US artists/groups from 1970 to 1989 who are still active until now. In summary, the dataset consists of 54 tables with 481,401 tuples (~52 MB). The extraction model is defined as below:
 ```
 artist 
 where begin_date_year < 1990 and begin_date_year >= 1970 
