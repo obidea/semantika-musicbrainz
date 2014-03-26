@@ -38,7 +38,7 @@ $ ./semantika materialize --config=mbzdb.cfg.xml --output=output.n3 -f N3
 Important Notes
 ===============
 
-* To be able to try all the mappings, you need to edit the configuration file manually. A list of mapping files are presented there, however the system only accepts one file at a time and therefore you need to adjust the comment sign by hand. Multiple mapping files support will be supported in the future release.
+* To be able to try all the mappings, you need to edit the configuration file manually. A list of mapping files are presented there, however the system only accepts one file at a time and therefore you need to adjust the comment sign by hand. Multiple mapping files support will be implemented in the future release.
 
 * The dataset is a subset of MusicBrainzDB per March 1, 2014. The dataset contains all US artists/groups from 1970 to 1989 who are still active until now. In summary the dataset consists of 54 tables with 481,401 tuples. The extraction model is defined as below:
 ```
