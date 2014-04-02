@@ -7,6 +7,7 @@ The purpose of this project is to show Semantika's capability in exporting data 
 
 Credits for Barry Norton who has provided the R2RML mappings in his repository site [LinkedBrainz / MusicBrainz-R2RML](https://github.com/LinkedBrainz/MusicBrainz-R2RML). This work is just a pure translation from those mappings.
 
+**New Tutorial**: [How to create a simple SPARQL endpoint for MusicBrainz database](https://github.com/obidea/semantika-sesame).
 
 User Guide
 ==========
