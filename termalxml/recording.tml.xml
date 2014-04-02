@@ -6,6 +6,7 @@
    <prefix tml:name="dc" tml:ns="http://purl.org/dc/elements/1.1/" />
    <prefix tml:name="foaf" tml:ns="http://xmlns.com/foaf/0.1/" />
    <prefix tml:name="rdfs" tml:ns="http://www.w3.org/2000/01/rdf-schema#" />
+   <prefix tml:name="xsd" tml:ns="http://www.w3.org/2001/XMLSchema#" />
 
    <uri-template tml:name="Recording" tml:value="http://musicbrainz.org/recording/{1}#_" />
 
@@ -14,7 +15,7 @@
       <subject-map rr:class="mo:Signal" rr:template="Recording(GID)"/>
       <predicate-object-map rr:predicate="mo:musicbrainz_guid" rr:column="GID"/>
       <predicate-object-map rr:predicate="dc:title" rr:column="NAME"/>
-      <predicate-object-map rr:predicate="mo:duration" rr:column="LENGTH"/>
+      <predicate-object-map rr:predicate="mo:duration" rr:column="LENGTH" rr:datatype="xsd:float"/>
    </mapping>
    <mapping tml:id="recording_annotation">
       <logical-table>

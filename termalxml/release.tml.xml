@@ -88,7 +88,7 @@
       ]]>
       </logical-table>
       <subject-map rr:template="ReleaseEvent(RELEASE_GID, COUNTRY)"/>
-      <predicate-object-map rr:predicate="dc:date" rr:column="date"/>
+      <predicate-object-map rr:predicate="dc:date" rr:column="DATE" rr:datatype="xsd:date"/>
    </mapping> -->
    <!-- Not yet supported BTRIM and TO_CHAR functions -->
    <!-- <mapping tml:id="release_event_date_year_month">
@@ -106,7 +106,7 @@
       ]]>
       </logical-table>
       <subject-map rr:template="ReleaseEvent(RELEASE_GID, COUNTRY)"/>
-      <predicate-object-map rr:predicate="dc:date" rr:column="YEAR_MONTH"/>
+      <predicate-object-map rr:predicate="dc:date" rr:column="YEAR_MONTH" rr:datatype="xsd:gYearMonth"/>
    </mapping> -->
    <!-- Not yet supported BTRIM and TO_CHAR functions -->
    <!-- <mapping tml:id="release_event_date_year">
@@ -124,7 +124,7 @@
       ]]>
       </logical-table>
       <subject-map rr:template="ReleaseEvent(RELEASE_GID, COUNTRY)"/>
-      <predicate-object-map rr:predicate="dc:date" rr:column="YEAR"/>
+      <predicate-object-map rr:predicate="dc:date" rr:column="YEAR" rr:datatype="xsd:gYear"/>
    </mapping> -->
    <!-- Missing RELEASE_COUNTRY table due to a mistake in producing data subset -->
    <!-- <mapping tml:id="release_event_place">

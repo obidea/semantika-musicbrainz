@@ -4,6 +4,7 @@
    xmlns:rr="http://www.w3.org/ns/r2rml#">
    <prefix tml:name="mo" tml:ns="http://purl.org/ontology/mo/" />
    <prefix tml:name="dc" tml:ns="http://purl.org/dc/elements/1.1/" />
+   <prefix tml:name="xsd" tml:ns="http://www.w3.org/2001/XMLSchema#" />
 
    <uri-template tml:name="Track" tml:value="http://musicbrainz.org/track/{1}#_" />
    <uri-template tml:name="Recording" tml:value="http://musicbrainz.org/recording/{1}#_" />
@@ -11,7 +12,7 @@
    <mapping tml:id="Track">
       <logical-table rr:tableName="TRACK" />
       <subject-map rr:class="mo:Track" rr:template="Track(ID)"/>
-      <predicate-object-map rr:predicate="mo:track_number" rr:column="POSITION"/>
+      <predicate-object-map rr:predicate="mo:track_number" rr:column="POSITION" rr:datatype="xsd:nonNegativeInteger"/>
       <predicate-object-map rr:predicate="dc:title" rr:column="NAME"/>
       <predicate-object-map rr:predicate="mo:duration" rr:column="LENGTH"/>
    </mapping>
