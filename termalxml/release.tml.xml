@@ -72,7 +72,7 @@
       <subject-map rr:class="mo:ReleaseEvent" rr:template="ReleaseEvent(RELEASE_GID, COUNTRY)"/>
       <predicate-object-map rr:predicate="mo:release" rr:template="Release(RELEASE_GID)"/>
    </mapping> -->
-   <!-- Not yet supported BTRIM and TO_CHAR functions -->
+   <!-- H2 doesn't support BTRIM and TO_CHAR functions -->
    <!-- <mapping tml:id="release_event_date">
       <logical-table>
       <![CDATA[
@@ -90,7 +90,7 @@
       <subject-map rr:template="ReleaseEvent(RELEASE_GID, COUNTRY)"/>
       <predicate-object-map rr:predicate="dc:date" rr:column="DATE" rr:datatype="xsd:date"/>
    </mapping> -->
-   <!-- Not yet supported BTRIM and TO_CHAR functions -->
+   <!-- H2 doesn't support BTRIM and TO_CHAR functions -->
    <!-- <mapping tml:id="release_event_date_year_month">
       <logical-table>
       <![CDATA[
@@ -108,7 +108,7 @@
       <subject-map rr:template="ReleaseEvent(RELEASE_GID, COUNTRY)"/>
       <predicate-object-map rr:predicate="dc:date" rr:column="YEAR_MONTH" rr:datatype="xsd:gYearMonth"/>
    </mapping> -->
-   <!-- Not yet supported BTRIM and TO_CHAR functions -->
+   <!-- H2 doesn't support BTRIM and TO_CHAR functions -->
    <!-- <mapping tml:id="release_event_date_year">
       <logical-table>
       <![CDATA[

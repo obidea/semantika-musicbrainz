@@ -53,8 +53,7 @@
        </logical-table>
        <subject-map rr:class="mo:MusicGroup" rr:template="Artist(GID)"/>
     </mapping>
-    <!-- Not yet supported LOWER function -->
-    <!-- <mapping tml:id="artist_type_group">
+    <mapping tml:id="artist_type_group">
       <logical-table>
       <![CDATA[
          select GID, LOWER(GENDER.NAME) as GENDER_NAME
@@ -62,9 +61,9 @@
          join GENDER on ARTIST.GENDER = GENDER.ID
       ]]>
       </logical-table>
-      <subject-map rr:template="Artist(gid)"/>
-      <predicate-object-map rr:predicate="foaf:gender" rr:column="gender_name"/>
-   </mapping> -->
+      <subject-map rr:template="Artist(GID)"/>
+      <predicate-object-map rr:predicate="foaf:gender" rr:column="GENDER_NAME"/>
+   </mapping>
    <mapping tml:id="artist_area">
       <logical-table>
       <![CDATA[
@@ -130,8 +129,7 @@
       <subject-map rr:template="Artist(ARTIST_GID)"/>
       <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL"/>
    </mapping>
-   <!-- Not yet supported LIKE expression -->
-   <!-- <mapping tml:id="artist_twitter">
+   <mapping tml:id="artist_twitter">
       <logical-table>
       <![CDATA[
          select ARTIST.GID as ARTIST_GID, URL
@@ -145,8 +143,8 @@
       </logical-table>
       <subject-map rr:template="Artist(ARTIST_GID)"/>
       <predicate-object-map rr:predicate="foaf:account" rr:column="URL"/>
-   </mapping> -->
-   <!-- Not yet supported self-join expression -->
+   </mapping>
+   <!-- Self-Join is not supported yet -->
    <!-- <mapping tml:id="artist_member">
       <logical-table>
       <![CDATA[
@@ -159,8 +157,8 @@
          where LINK_TYPE.GID = '5be4c609-9afa-4ea0-910b-12ffb71e3821' AND LINK.ENDED = FALSE
       ]]>
       </logical-table>
-      <subject-map rr:template="Artist(artist_gid_1)"/>
-      <predicate-object-map rr:predicate="mo:member_of" rr:column="Artist(artist_gid_2)"/>
+      <subject-map rr:template="Artist(ARTIST_GID_1)"/>
+      <predicate-object-map rr:predicate="mo:member_of" rr:column="Artist(ARTIST_GID_2)"/>
    </mapping> -->
    <mapping tml:id="artist_recording">
       <logical-table>
