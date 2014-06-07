@@ -29,7 +29,7 @@
       ]]>
       </logical-table>
       <subject-map rr:template="ReleaseGroup(RELEASE_GROUP_GID)"/>
-      <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL"/>
+      <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL" rr:termType="rr:IRI"/>
    </mapping>
    <mapping tml:id="release_group_seeAlso">
       <logical-table>
@@ -46,7 +46,7 @@
       ]]>
       </logical-table>
       <subject-map rr:template="ReleaseGroup(RELEASE_GROUP_GID)"/>
-      <predicate-object-map rr:predicate="rdfs:seeAlso" rr:column="URL"/>
+      <predicate-object-map rr:predicate="rdfs:seeAlso" rr:column="URL" rr:termType="rr:IRI"/>
    </mapping>
    <mapping tml:id="release_group_annotation">
       <logical-table>

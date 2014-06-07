@@ -48,7 +48,7 @@
       ]]>
       </logical-table>
       <subject-map rr:template="Work(WORK_GID)"/>
-      <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL"/>
+      <predicate-object-map rr:predicate="foaf:isPrimaryTopicOf" rr:column="URL" rr:termType="rr:IRI"/>
    </mapping>
    <mapping tml:id="work_annotation">
       <logical-table>

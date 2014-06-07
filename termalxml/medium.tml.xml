@@ -34,6 +34,6 @@
       ]]>
       </logical-table>
       <subject-map rr:template="Record(MEDIUM_ID)"/>
-      <predicate-object-map rr:predicate="mo:media_type" rr:column="MEDIUM_FORMAT_ID"/>
+      <predicate-object-map rr:predicate="mo:media_type" rr:column="MEDIUM_FORMAT_ID" rr:termType="rr:IRI"/>
    </mapping>
 </program>
