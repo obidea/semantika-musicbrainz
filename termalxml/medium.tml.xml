@@ -7,12 +7,13 @@
 
    <uri-template tml:name="Record" tml:value="http://musicbrainz.org/record/{1}#_" />
    <uri-template tml:name="Track" tml:value="http://musicbrainz.org/track/{1}#_" />
+   <uri-template tml:name="MediumFormat" tml:value="http://musicbrainz.org/medium-format/{1}#_" />
 
    <mapping tml:id="Medium">
       <logical-table rr:tableName="MEDIUM" />
       <subject-map rr:class="mo:Record" rr:template="Record(ID)"/>
-      <predicate-object-map rr:predicate="dc:title" rr:column="NAME"/>
-      <predicate-object-map rr:predicate="mo:track_count" rr:column="TRACK_COUNT"/>
+      <predicate-object-map rr:predicate="dc:title" rr:column="NAME" rr:datatype="xsd:string"/>
+      <predicate-object-map rr:predicate="mo:track_count" rr:column="TRACK_COUNT" rr:datatype="xsd:int"/>
    </mapping>
    <mapping tml:id="medium_track">
       <logical-table>
@@ -23,7 +24,7 @@
       ]]>
       </logical-table>
       <subject-map rr:template="Record(MEDIUM_ID)"/>
-      <predicate-object-map rr:predicate="mo:track" rr:template="Track(TRACK_ID)"/>
+      <predicate-object-map rr:predicate="mo:track" rr:template="Track(TRACK_ID)" rr:termType="rr:IRI"/>
    </mapping>
    <mapping tml:id="medium_format">
       <logical-table>
@@ -34,6 +35,6 @@
       ]]>
       </logical-table>
       <subject-map rr:template="Record(MEDIUM_ID)"/>
-      <predicate-object-map rr:predicate="mo:media_type" rr:column="MEDIUM_FORMAT_ID" rr:termType="rr:IRI"/>
+      <predicate-object-map rr:predicate="mo:media_type" rr:template="MediumFormat(MEDIUM_FORMAT_ID)" rr:termType="rr:IRI"/>
    </mapping>
 </program>
