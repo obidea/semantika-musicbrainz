@@ -120,9 +120,9 @@
          select ARTIST.GID as ARTIST_GID, URL
          from ARTIST
          join L_ARTIST_URL ON ARTIST.ID = L_ARTIST_URL.ENTITY0
-         join LINK ON L_ARTIST_URL.LINK = LINK.ID 
-         join LINK_TYPE ON LINK_TYPE = LINK_TYPE.ID 
-         join URL on L_ARTIST_URL.ENTITY1 = URL.ID  
+         join LINK ON L_ARTIST_URL.LINK = LINK.ID
+         join LINK_TYPE ON LINK_TYPE = LINK_TYPE.ID
+         join URL on L_ARTIST_URL.ENTITY1 = URL.ID
          where LINK_TYPE.GID = '29651736-fa6d-48e4-aadc-a557c6add1cb'
       ]]>
       </logical-table>
@@ -135,9 +135,9 @@
          select ARTIST.GID as ARTIST_GID, URL
          from ARTIST
          join L_ARTIST_URL ON ARTIST.ID = L_ARTIST_URL.ENTITY0
-         join LINK ON L_ARTIST_URL.LINK = LINK.ID 
-         join LINK_TYPE ON LINK_TYPE = LINK_TYPE.ID 
-         join URL on L_ARTIST_URL.ENTITY1 = URL.ID  
+         join LINK ON L_ARTIST_URL.LINK = LINK.ID
+         join LINK_TYPE ON LINK_TYPE = LINK_TYPE.ID
+         join URL on L_ARTIST_URL.ENTITY1 = URL.ID
          where LINK_TYPE.GID = '9309af3a-ebb6-4960-aebb-d286bd3ed1c7' AND URL LIKE 'http://twitter.com/%'
       ]]>
       </logical-table>
